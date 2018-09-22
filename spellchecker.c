@@ -24,7 +24,7 @@ char *next_word_in_dict(FILE *dict);
 /*
  * Return the next word from the text stream.
  * A word is a sequence of characters and apostrophes.
- * Everything else, including words containing numbers, gets ignored.
+ * Everything else gets ignored.
  */
 char *next_word_in_text(FILE *text);
 
@@ -68,6 +68,9 @@ char *next_word_in_text(FILE *text) {
     char c;
 
     while ((c = fgetc(text)) != EOF) {
+        // Skip whitespace
+
+
         // TODO: Decide on a word policy and implement it
 
         if (buffer_size == word_len) {
