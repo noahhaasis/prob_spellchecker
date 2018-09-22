@@ -15,8 +15,17 @@
 
 bloom_filter_t *get_filter_from_dict(FILE *dict);
 
+/*
+ * Return the next word from the dict stream
+ * It's assumed that words are seperated using new lines
+ */
 char *next_word_in_dict(FILE *dict);
 
+/*
+ * Return the next word from the text stream.
+ * A word is a sequence of characters and apostrophes.
+ * Everything else, including words containing numbers, gets ignored.
+ */
 char *next_word_in_text(FILE *text);
 
 int main(int argc, char **argv) {
