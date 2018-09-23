@@ -6,6 +6,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <ctype.h>
+#include <stdbool.h>
 
 #include "bloom_filter.h"
 
@@ -22,8 +23,9 @@ bloom_filter_t *get_filter_from_dict(FILE *dict);
  */
 char *next_word_in_dict(FILE *dict);
 
+bool is_word_char(char c);
 /*
- * Return the next word from the text stream.
+ * Return the next word from the text stream(as lowercase).
  * A word is a sequence of characters and apostrophes.
  * Everything else gets ignored.
  */
@@ -63,22 +65,26 @@ int main(int argc, char **argv) {
     return EXIT_SUCCESS;
 }
 
+bool is_word_char(char c) {
+    return isalpha(c) || c == '\'';
+}
+
 char *next_word_in_text(FILE *text) {
     char *word_buffer = malloc(INITIAL_WORD_BUFFER_LEN);
     int word_len = 0, buffer_size = INITIAL_WORD_BUFFER_LEN;
     char c;
 
-    while ((c = fgetc(text)) != EOF) {
-        for (; !(isalpha(c) || c == '\''); c = fgetc(text));// Skip all invalid chars
+    while (!is_word_char((c = fgetc(text))) && c != EOF); // Skip all invalid chars
 
-        for(; isalpha(c) || c == '\''; c = fgetc(text)) {
-            word_buffer[word_len++] = c;
-        }
+    while (is_word_char(c)) {
+        word_buffer[word_len++] = tolower(c);
 
         if (buffer_size == word_len) {
             buffer_size *= 2;
             word_buffer = realloc(word_buffer, buffer_size);
         }
+
+        c = fgetc(text);
     }
 
     if (word_len == 0 && c == EOF) {
