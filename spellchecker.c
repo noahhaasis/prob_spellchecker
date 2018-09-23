@@ -72,7 +72,7 @@ char *next_word_in_text(FILE *text) {
         for (; !(isalpha(c) || c == '\''); c = fgetc(text));// Skip all invalid chars
 
         for(; isalpha(c) || c == '\''; c = fgetc(text)) {
-            word_buffer[word_len++] == c;
+            word_buffer[word_len++] = c;
         }
 
         if (buffer_size == word_len) {
