@@ -68,10 +68,11 @@ char *next_word_in_text(FILE *text) {
     char c;
 
     while ((c = fgetc(text)) != EOF) {
-        // Skip whitespace
+        for (; !(isalpha(c) || c == '\''); c = fgetc(text));// Skip all invalid chars
 
-
-        // TODO: Decide on a word policy and implement it
+        for(; isalpha(c) || c == '\''; c = fgetc(text)) {
+            word_buffer[word_len++] == c;
+        }
 
         if (buffer_size == word_len) {
             buffer_size *= 2;
