@@ -10,8 +10,8 @@
 
 #include "bloom_filter.h"
 
-#define INITIAL_WORD_BUFFER_LEN 6
-#define ESTIMATED_DICT_SIZE 150000
+#define INITIAL_WORD_BUFFER_LEN    6
+#define ESTIMATED_DICT_SIZE        150000
 #define FALSE_POSITIVE_PROBABILITY 0.01
 
 
@@ -24,6 +24,7 @@ bloom_filter_t *get_filter_from_dict(FILE *dict);
 char *next_word_in_dict(FILE *dict);
 
 bool is_word_char(char c);
+
 /*
  * Return the next word from the text stream(as lowercase).
  * A word is a sequence of characters and apostrophes.
