@@ -33,7 +33,7 @@ char *next_word_in_text(FILE *text);
 
 int main(int argc, char **argv) {
     if (argc != 3) {
-        fprintf(stderr, "Usage: ./spellchecker dictionary text\n");
+        fprintf(stderr, "Usage: %s dictionary text\n", argv[0]);
         return 1;
     }
 
